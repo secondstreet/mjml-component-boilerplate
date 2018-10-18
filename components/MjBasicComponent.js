@@ -58,7 +58,7 @@ export default class MjBasicComponent extends BodyComponent {
     return `
       <div
         ${this.htmlAttributes({ // this.htmlAttributes() is the recommended way to pass attributes to html tags
-          class: this.getAttribute('css-class'),
+          'class': this.getAttribute('css-class'),
           style: 'wrapperDiv' // This will add the 'wrapperDiv' attributes from getStyles() as inline style
         })}
       >

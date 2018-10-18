@@ -9,16 +9,18 @@ import { registerComponent } from 'mjml-core'
 
 const walkSync = (dir, filelist = []) => {
   fs.readdirSync(dir).forEach(file => {
-    filelist = fs.statSync(path.join(dir, file)).isDirectory()
-      ? walkSync(path.join(dir, file), filelist)
-      : filelist.concat(path.join(dir, file))
-  })
- return filelist
+    if (fs.statSync(path.join(dir, file)).isDirectory()) {
+      walkSync(path.join(dir, file), filelist);
+    } else if (/\.js$/.test(file)) {
+      filelist.push(path.join(dir, file));
+    }
+  });
+  return filelist;
 }
 
 const watchedComponents = walkSync('./components')
 
-const compile = () => {
+const compile = () =>
   gulp.src(path.normalize('components/**/*.js'))
     .pipe(babel())
     .on('error', log)
@@ -30,13 +32,10 @@ const compile = () => {
         registerComponent(require(fullPath).default)
       })
 
-      fs.readFile(path.normalize('./index.mjml'), 'utf8', (err, data) => {
-        if (err) throw err
-        const result = mjml2html(data)
-        fs.writeFileSync(path.normalize('./index.html'), result.html)
-      })
+      const data = fs.readFileSync(path.normalize('./index.mjml'), 'utf8');
+      const result = mjml2html(data)
+      fs.writeFileSync(path.normalize('./index.html'), result.html)
     })
-}
 
 gulp.task('build', compile)
 
