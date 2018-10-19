@@ -6,7 +6,7 @@
   "scripts": {
     "start": "gulp watch",
     "build": "gulp build",
-    "lint": "eslint components"
+    "lint": "eslint gulpfile.babel.js components/"
   },
   "author": "",
   "license": "ISC",

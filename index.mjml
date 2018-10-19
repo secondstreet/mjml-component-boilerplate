@@ -17,7 +17,9 @@
 
     <!-- The third component, mj-layout, also renders as a section -->
     <mj-layout>
+      <mj-hbs helper="if" args="true '10'" />
       <mj-text color="blue" font-size="10px">
+        <mj-hbs helper="if" args="false '10' '7'" />
         A super nice layout component
       </mj-text>
     </mj-layout>
