@@ -35,6 +35,7 @@ const compile = () =>
       const data = fs.readFileSync(path.normalize('./index.mjml'), 'utf8');
       const result = mjml2html(data, { beautify: true })
       fs.writeFileSync(path.normalize('./index.html'), result.html)
+      log('successfully wrote index.html');
     })
 
 gulp.task('build', compile)

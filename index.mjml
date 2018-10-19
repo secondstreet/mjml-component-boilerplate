@@ -22,6 +22,9 @@
         <mj-hbs helper="if" args="false '10' '7'" />
         A super nice layout component
       </mj-text>
+      <mj-hbs-block helper="if" args="true">
+        <mj-text>Test</mj-text>
+      </mj-hbs-block>
     </mj-layout>
 
   </mj-body>
